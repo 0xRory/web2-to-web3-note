@@ -40,17 +40,25 @@
 
 [ Etherscan ](https://etherscan.io/) 是以太坊的區塊瀏覽器，它記錄所有交易並以簡單的方式顯示它們。
 
-#### Gae Fee
+#### Gas Fee
 
-進行轉賬會產生交易費。這稱為 [Gae Fee](https://ethereum.org/en/developers/docs/gas/) 區塊鏈上的每筆交易都有成本。所以當你想要發送代幣時，你需要支付稱為 gas fee 的價格。Gas是表示交易成本的單位度量。 <br/>
+進行轉賬會產生交易費。這稱為 [Gas Fee](https://ethereum.org/en/developers/docs/gas/) 區塊鏈上的每筆交易都有成本。所以當你想要發送代幣時，你需要支付稱為 gas fee 的價格。Gas是表示交易成本的單位度量。 <br/>
 
-這裡有一點需要補充（下圖）可以看到如果是轉 USDT 其手續費也是 ETH。
+這裡有一點需要補充（下圖）可以看到如果是轉 USDT 其手續費也是 ETH。<br/>
 ![](../images/Week1/Day2/image.png)
 
+在以太坊上，Gas Fee 以 ETH 支付並以 gwei 表示。 <br/>
+這邊幫大家整理一下常看到的名詞
+| Gas Fee   | 交易手續費 |                           |   |   |   |   |   |   |   |
+|-----------|-------|---------------------------|---|---|---|---|---|---|---|
+| Gas Price | 燃料價格  | 就每單位 Gas 願意付出多少 ETH  ，當然付越多速度有機會比較快     |   |   |   |   |   |   |   |
+| Gas Limit | 燃料限制  | 一般標準交易的 Gas Limit 為21000 |   |   |   |   |   |   |   |
+| Gas Used  | 燃料使用  |                           |   |   |   |   |   |   |   |
 
+這裡有個小常識
 
-在以太坊上，Gae Fee以 ETH 支付並以 gwei 表示。
-
+- 預估交易費 = Gas Limit x Gas Price
+- 實際交易費 = Gas Used x Gas Price
 ###  🥅 目標
 - [v] 設置一個 metamask 錢包
 - [v] 將測試網絡添加到元掩碼
@@ -58,7 +66,7 @@
 
 **可交付成果**
 - [v] 向您發送測試網交易
-- [v] 將您的錢包地址發送至
+- [v] 將您的錢包地址發送到其他地址
 
 <br>
 
