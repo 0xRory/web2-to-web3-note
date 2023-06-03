@@ -60,3 +60,5 @@ ERC智能合約比較多。例如，創建不可替代令牌（NFT）的標準�
 ![](../images/Week1/Day3/3.png)
 **Deliverables**
 - [ ] 利用 ENS 送出交易.
+<br/>
+可參考說明[影片](https://www.youtube.com/watch?v=wYSMNdIRoII)
