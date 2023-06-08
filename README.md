@@ -22,3 +22,7 @@
 - **Day 1**: [introduction](./web2-to-web3-curriculum/Week1/introduction.md)
 - **Day 2**: [Wallets, Transactions, Gas](./web2-to-web3-curriculum/Week1/week-Day2-notes.md)
 - **Day 3**: [ENS, DEX, Identity, Inventory, Sybil](./web2-to-web3-curriculum/Week1/week-Day3-notes.md)
+
+
+### Week 2 - 👩‍🚀 Scripting and Smart Contracts
+  - **Day 1:** [Providers, Signers, Wallets & Scripting with ethers.js](./web2-to-web3-curriculum/Week2/Day1/README.md)
