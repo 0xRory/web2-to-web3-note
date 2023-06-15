@@ -107,51 +107,166 @@ console.log('tx complete');
 
 ### YourCollectible.sol
 ```js
-//SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.17;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-//learn more: https://docs.openzeppelin.com/contracts/3.x/erc721
+import "@openzeppelin/contracts/utils/Counters.sol";
 
-// GET LISTED ON OPENSEA: https://testnets.opensea.io/get-listed/step-two
+contract YileBaccaratChain is ERC721, ERC721URIStorage, Ownable {
+    using Counters for Counters.Counter;
 
-contract YourCollectible is ERC721, Ownable {
+    Counters.Counter private _tokenIdCounter;
 
-  using Counters for Counters.Counter;
-  Counters.Counter private _tokenIds;
-  string private baseURI;
+    constructor() ERC721("YourCollectible", "YBC") {}
 
-  constructor() public ERC721("YourCollectible", "YCB") {
-    _setBaseURI("https://ipfs.io/ipfs/");
-  }
+    function safeMint(address to, string memory uri) public onlyOwner {
+        uint256 tokenId = _tokenIdCounter.current();
+        _tokenIdCounter.increment();
+        _safeMint(to, tokenId);
+        _setTokenURI(tokenId, uri);
+    }
 
-  function mintItem(address to, string memory tokenURI)
-      public
-      onlyOwner
-      returns (uint256)
-  {
-      _tokenIds.increment();
+    // The following functions are overrides required by Solidity.
 
-      uint256 id = _tokenIds.current();
-      _mint(to, id);
-      _setTokenURI(id, tokenURI);
+    function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
+        super._burn(tokenId);
+    }
 
-      return id;
-  }
+    function getCurrent() public view returns(uint256) {
+        return _tokenIdCounter.current();
+    }
 
-  function _getNumItems() public view returns (uint256) {
-      return _tokenIds.current();
-  }
-    // Set base URI
-    function _setBaseURI(string memory _newBaseURI) public {
-        baseURI = _newBaseURI;
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        override(ERC721, ERC721URIStorage)
+        returns (string memory)
+    {
+        return super.tokenURI(tokenId);
+    }
+
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        override(ERC721, ERC721URIStorage)
+        returns (bool)
+    {
+        return super.supportsInterface(interfaceId);
     }
 }
-
 ```
 
-這是一個簡易的 ERC721 合約，我們可以透過 mintItem 來創建一個 ERC721 的 NFT，並且可以透過 _getNumItems 來取得目前的 NFT 數量。
+這是一個簡易的 ERC721 合約，我們可以透過 mintItem 來創建一個 ERC721 的 NFT，並且可以透過 getCurrent 來取得目前的 NFT 目前的 ID，這邊先不深入說明裡面內容。
+
+- 目前部署在 sepolia 上，可直接練習
+  0xCcB88EE64cc6B0C50430fd49F1c7144eAf8323A1
+
+https://sepolia.etherscan.io/address/0xccb88ee64cc6b0c50430fd49f1c7144eaf8323a1
 
 
+讓我們開始吧
+### contract Read
+
+這裡最重要的是如何綁定合約並讀取到如下圖
+![](../../images/Week2/Day2/abi.png)
+
+`可從圖中看出來智能合約和應用程式間必須透過 "abi" 來溝通`
+
+[前往查看 abi](./abi/NFT.js) 
+
+會看到下面的格式
+```js
+  {
+    "inputs": [ // 輸入
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "approve", // 呼叫方法名稱
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+```
+
+## contract_red.js
+
+```js
+import 'dotenv/config';
+import { ethers } from 'ethers';
+import sanfordNFTABI from './abi/NFT.js';
+import { getProvder, getSigner } from './utils.js';
+const sanfordNFTAddress = "0xCcB88EE64cc6B0C50430fd49F1c7144eAf8323A1";
+const sepoliaSinger = getSigner();
+
+const Contract = new ethers.Contract(sanfordNFTAddress, sanfordNFTABI, sepoliaSinger);
+
+const _currentId = await Contract.getCurrent();
+console.log('_currentId', _currentId);
+```
+說明一下
+1. 給定合約地址 0xCcB88EE64cc6B0C50430fd49F1c7144eAf8323A1
+2. 給定合約 ABI
+3. 給定 signer
+4. 透過 ethers.Contract 來綁定合約
+5. 透過 Contract.getCurrent() 來取得目前的 NFT 目前的 ID
+
+Contract.getCurrent() Result:\
+![](../../images/Week2/Day2/readSucess.png)
+
+
+### contract Write
+
+## contract_write.js
+
+```js
+import 'dotenv/config';
+import { ethers } from 'ethers';
+import sanfordNFTABI from './abi/NFT.js';
+import { getSigner } from './utils.js';
+const sanfordNFTAddress = "0xCcB88EE64cc6B0C50430fd49F1c7144eAf8323A1";
+const sepoliaSinger = getSigner();
+
+const Contract = new ethers.Contract(sanfordNFTAddress, sanfordNFTABI, sepoliaSinger);
+
+console.log('Mint Start....');
+const Tx = await Contract.safeMint(await sepoliaSinger.getAddress(), 'https://ipfs.io/ipfs/');
+
+console.log('Mint Sucess...');
+
+console.log(Tx.hash);
+
+const url = await Contract.tokenURI(0);
+console.log(url);
+```
+
+說明一下
+1. 給定合約地址 0xCcB88EE64cc6B0C50430fd49F1c7144eAf8323A1
+2. 給定合約 ABI
+3. 給定 signer
+4. 透過 ethers.Contract 來綁定合約
+5. 透過 Contract.safeMint 來創建一個 ERC721 的 NFT
+6. 透過 Contract.tokenURI 來取得 NFT 的 URI (測試一下)
+
+Contract.safeMint Result:\
+![](../../images/Week2/Day2/writeSucess.png)
+Contract.tokenURI:\
+![](../../images/Week2/Day2/printurl.png)
+
+大概是 Week2-Day2 的簡要紀錄。
+
+影片出處
+https://www.youtube.com/watch?v=9qt35swYSUg
+
+[⬆️ Day1](../Day1/README.md) \
+[🏰 回首頁](../../../README.md)

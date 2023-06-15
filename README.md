@@ -25,4 +25,5 @@
 
 
 ### Week 2 - 👩‍🚀 Scripting and Smart Contracts
-  - **Day 1:** [Providers, Signers, Wallets & Scripting with ethers.js](./web2-to-web3-curriculum/Week2/Day1/README.md)
+  - **Day 1:** [Providers, Signers, Wallets & Scripting with Ethers.js](./web2-to-web3-curriculum/Week2/Day1/README.md)
+  - **Day 2:** [Week 2, Day 2: Reading and Writing to Contracts with Ethers.js](./web2-to-web3-curriculum/Week2/Day2/README.md)
