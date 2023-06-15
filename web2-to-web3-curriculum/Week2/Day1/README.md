@@ -148,3 +148,6 @@ console.log('tx complete');
 
 影片出處
 https://www.youtube.com/watch?v=m2AJAcWk394
+
+[⬇️ Day2](../Day2/README.md) \
+[🏰 回首頁](../../../README.md)
