@@ -1,4 +1,5 @@
-Week 2, Day 2: Reading and Writing to Contracts with Ethers.js
+###  Reading and Writing to Contracts with Ethers.js 
+### 使用 Ethers.js 讀取和寫入合約
 
 
 可以先領一下水龍頭，我們使用的是 ETH sepolia 測試網路
