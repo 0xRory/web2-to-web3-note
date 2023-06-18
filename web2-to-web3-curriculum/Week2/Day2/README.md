@@ -270,4 +270,5 @@ Contract.tokenURI:\
 https://www.youtube.com/watch?v=9qt35swYSUg
 
 [⬆️ Day1](../Day1/README.md) \
+[⬇️ Day3](../Day3/README.md) \
 [🏰 回首頁](../../../README.md)
