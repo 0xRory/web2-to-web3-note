@@ -300,4 +300,5 @@ async function getNFTCurrentId(Contract) {
 https://www.youtube.com/watch?v=7EwDOV4nEcY
 
 [⬆️ Day2](../Day2/README.md) \
+[⬇️ Day4](../Day4/README.md) \
 [🏰 回首頁](../../../README.md)

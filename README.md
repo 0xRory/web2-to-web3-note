@@ -28,3 +28,4 @@
   - **Day 1:** [Providers, Signers, Wallets & Scripting with Ethers.js](./web2-to-web3-curriculum/Week2/Day1/README.md) ✅
   - **Day 2:** [Reading and Writing to Contracts with Ethers.js](./web2-to-web3-curriculum/Week2/Day2/README.md) ✅
   - **Day 3:** [Intro to Ethereum Clients & Hardhat](./web2-to-web3-curriculum/Week2/Day3/README.md) ✅
+  - **Day 4:** [Solidity & Testing with Hardhat](./web2-to-web3-curriculum/Week2/Day4/README.md) ✅
